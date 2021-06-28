@@ -1,0 +1,33 @@
+[req]
+distinguished_name = req_distinguished_name
+req_extensions = v3_req
+
+
+[req_distinguished_name]
+countryName = Country Name (2 letter code)
+countryName_default = CN
+stateOrProvinceName = State or Province Name (full name)
+stateOrProvinceName_default = ZheJiang
+localityName = Locality Name (eg, city)
+localityName_default = HangZhou
+organizationName = Organization Name (eg, company)
+organizationName_default = HC
+organizationalUnitName  = Organizational Unit Name (eg, section)
+organizationalUnitName_default  = Dev
+commonName = Common Name (e.g. server FQDN or YOUR name)
+commonName_default = ca.com
+commonName_max  = 64
+
+
+[v3_req]
+basicConstraints = CA:TRUE
+subjectAltName = @alt_names
+
+
+[alt_names]
+IP.1 = 192.168.56.1
+IP.2 = 127.0.0.1
+IP.3 = 10.1.11.212
+DNS.1 = www.company.net
+DNS.2 = company.com
+DNS.3 = company.net
