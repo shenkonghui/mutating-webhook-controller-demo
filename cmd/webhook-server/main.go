@@ -100,12 +100,23 @@ func applySecurityDefaults(req *v1beta1.AdmissionRequest) ([]patchOperation, err
 		}
 	}
 
-	// Create patch operations to apply sensible defaults, if those options are not set explicitly.
+	var nodeName = "slave-213"
+	klog.Infof("asssign pod %s to node %s",pod.Name,nodeName)
+	nodeSelector := pod.Spec.NodeSelector
+	if nodeSelector == nil{
+		nodeSelector = make(map[string]string)
+	}
+	nodeSelector["kubernetes.io/hostname"] = nodeName
 
 	patches = append(patches, patchOperation{
 		Op:   "replace",
 		Path: "/spec/volumes",
 		Value: volumes,
+	})
+	patches = append(patches, patchOperation{
+		Op:   "replace",
+		Path: "/spec/nodeSelector",
+		Value: nodeSelector,
 	})
 	return patches, nil
 }
